@@ -15,6 +15,7 @@ import java.util.UUID;
 @Table(name = "ROOM")
 @Entity
 public class Room {
+
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
     @Id
@@ -31,7 +32,8 @@ public class Room {
     @Column(name = "SQUARE_METERS")
     private Integer squareMeters;
 
-    @Column(name = "SLEEPING_PLACES")
+    @NotNull
+    @Column(name = "SLEEPING_PLACES", nullable = false)
     private Integer sleepingPlaces;
 
     @Column(name = "SAFE_DEPOSIT")

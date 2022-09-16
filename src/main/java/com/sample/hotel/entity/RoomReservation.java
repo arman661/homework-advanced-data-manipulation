@@ -19,9 +19,9 @@ public class RoomReservation {
     @Id
     private UUID id;
 
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "BOOKING_ID", nullable = false)
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Booking booking;
 
     @JoinColumn(name = "ROOM_ID", nullable = false)

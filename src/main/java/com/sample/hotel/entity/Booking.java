@@ -36,9 +36,31 @@ public class Booking {
     @NotNull
     private Integer nightsOfStay;
 
+    @Column(name = "DEPARTURE_DATE")
+    private LocalDate departureDate;
+
     @Column(name = "STATUS", nullable = false)
     @NotNull
     private String status;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "booking")
+    private RoomReservation roomReservation;
+
+    public LocalDate getDepartureDate() {
+        return departureDate;
+    }
+
+    public void setDepartureDate(LocalDate departureDate) {
+        this.departureDate = departureDate;
+    }
+
+    public RoomReservation getRoomReservation() {
+        return roomReservation;
+    }
+
+    public void setRoomReservation(RoomReservation roomReservation) {
+        this.roomReservation = roomReservation;
+    }
 
     public BookingStatus getStatus() {
         return status == null ? null : BookingStatus.fromId(status);
