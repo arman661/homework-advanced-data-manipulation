@@ -4,7 +4,6 @@ import com.sample.hotel.entity.Booking;
 import com.sample.hotel.entity.Room;
 import com.sample.hotel.entity.RoomReservation;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class BookingService {
@@ -17,7 +16,7 @@ public class BookingService {
      *
      * @param booking booking
      * @param room room
-     * @return if checks are passed successfully
+     * @return true if checks are passed successfully
      */
     public boolean isSuitable(Booking booking, Room room) {
         //todo implement me!
@@ -32,7 +31,6 @@ public class BookingService {
      *
      * @return created reservation object, or null if room is not suitable
      */
-    @Transactional
     public RoomReservation reserveRoom(Booking booking, Room room) {
         //todo implement me!
         return null;
