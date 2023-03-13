@@ -19,15 +19,10 @@ public class ReservedRoomsScreen extends StandardLookup<RoomReservation> {
 
     @Subscribe("roomReservationsTable.viewClientEmail")
     public void onRoomReservationsTableViewClientEmail(Action.ActionPerformedEvent event) {
-        RoomReservation reservation = roomReservationsTable.getSingleSelected();
-        if (reservation == null) {
-            return;
+        RoomReservation roomReservation = roomReservationsTable.getSingleSelected();
+        if(roomReservation != null) {
+            String email = roomReservation.getBooking().getClient().getEmail();
+            dialogs.createMessageDialog().withCaption("Email").withMessage(email).show();
         }
-        Client client = reservation.getBooking().getClient();
-
-        dialogs.createMessageDialog()
-                .withCaption("Client email")
-                .withMessage(client.getEmail())
-                .show();
     }
 }

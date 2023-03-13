@@ -1,11 +1,14 @@
 package com.sample.hotel.entity;
 
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
+import io.jmix.core.metamodel.annotation.DependsOnProperties;
 import io.jmix.core.metamodel.annotation.JmixEntity;
+import io.jmix.core.metamodel.annotation.JmixProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.UUID;
 
 @JmixEntity
@@ -45,6 +48,19 @@ public class Booking {
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "booking")
     private RoomReservation roomReservation;
+
+    @JmixProperty
+    @Transient
+    @DependsOnProperties({"arrivalDate"})
+    private Integer countdownDays;
+
+    public Integer getCountdownDays() {
+        return countdownDays;
+    }
+
+    public void setCountdownDays(Integer countdownDays) {
+        this.countdownDays = countdownDays;
+    }
 
     public LocalDate getDepartureDate() {
         return departureDate;
@@ -108,5 +124,16 @@ public class Booking {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    @PostLoad
+    public void postLoad() {
+        if (arrivalDate != null) {
+            Period between = Period.between(LocalDate.now(), arrivalDate);
+            int days = between.getDays();
+            int months = between.getMonths();
+            int years = between.getYears();
+            countdownDays = days + months * 30 + years * 365;
+        }
     }
 }
